@@ -1,6 +1,6 @@
 // 1. Load Bhopal shapefile
 Map.centerObject(aoi, 9);
-Map.addLayer(bhopal, {}, "aoi");
+Map.addLayer(aoi, {}, "roi");
 
 // 2. Load Sentinel-2 Harmonized Surface Reflectance data
 var s2 = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
