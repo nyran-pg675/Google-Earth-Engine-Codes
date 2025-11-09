@@ -1,10 +1,10 @@
 // 1. Load Bhopal shapefile
-Map.centerObject(bhopal, 9);
-Map.addLayer(bhopal, {}, "Bhopal");
+Map.centerObject(aoi, 9);
+Map.addLayer(bhopal, {}, "aoi");
 
 // 2. Load Sentinel-2 Harmonized Surface Reflectance data
 var s2 = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
-  .filterBounds(bhopal)
+  .filterBounds(aoi)
   .filterDate('2024-01-01', '2024-12-31')
   .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 10));
 
@@ -29,11 +29,11 @@ Map.addLayer(ndwi2024.clip(bhopal), ndwiVis, 'NDWI 2024 (Sentinel-2)');
 
 // 6. Export to Google Drive
 Export.image.toDrive({
-  image: ndwi2024.clip(bhopal),
+  image: ndwi2024.clip(aoi),
   description: 'NDWI_2024_Sentinel2_Bhopal',
   folder: 'GEE_exports',
   fileNamePrefix: 'NDWI_S2_2024_Bhopal',
-  region: bhopal.geometry(),
+  region: aoi.geometry(),
   scale: 10,
   crs: 'EPSG:4326',
   maxPixels: 1e13
